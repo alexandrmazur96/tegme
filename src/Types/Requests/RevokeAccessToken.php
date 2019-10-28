@@ -69,6 +69,15 @@ final class RevokeAccessToken extends BaseRequest
     }
 
     /**
+     * Return path if exists.
+     * @return string
+     */
+    public function getPath()
+    {
+        return '';
+    }
+
+    /**
      * Nothing to validate in this request.
      * @return void
      * @link https://telegra.ph/api all information about valid request fields you can find here.

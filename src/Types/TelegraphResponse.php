@@ -2,64 +2,40 @@
 
 namespace Tegme\Types;
 
+use Tegme\Factories\AbstractTelegraphResponseFactory;
+
 /**
  * Represent request response from telegra.ph API.
  * @package Tegme\Types
  */
 class TelegraphResponse
 {
-    /**
-     * @var bool
-     */
-    private $ok;
+    /** @var AbstractTelegraphResponseFactory */
+    private $factory;
+
+    /** @var array */
+    private $apiResponse;
+
+    /** @var string */
+    private $method;
 
     /**
-     * @var mixed|null
+     * @param AbstractTelegraphResponseFactory $factory
+     * @param array $apiResponse
+     * @param string $method
      */
-    private $result;
-
-    /**
-     * @var string|null
-     */
-    private $error;
-
-    /**
-     * @param bool $ok
-     * @param mixed|null $result
-     * @param string|null $error
-     */
-    public function __construct($ok, $result = null, $error = null)
+    public function __construct(AbstractTelegraphResponseFactory $factory, array $apiResponse, $method)
     {
-        $this->ok = $ok;
-        $this->result = $result;
-        $this->error = $error;
+        $this->factory = $factory;
+        $this->apiResponse = $apiResponse;
+        $this->method = $method;
     }
 
     /**
-     * Indicate request result.
-     * @return bool
-     */
-    public function isOk()
-    {
-        return $this->ok;
-    }
-
-    /**
-     * Successful request result data.
-     * Look at Tegme/Types package to found available types.
-     * @return mixed|null
+     * @return mixed
      */
     public function getResult()
     {
-        return $this->result;
-    }
-
-    /**
-     * Error information
-     * @return string|null
-     */
-    public function getError()
-    {
-        return $this->error;
+        return $this->factory->build($this->apiResponse, $this->method);
     }
 }

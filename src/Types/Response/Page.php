@@ -10,68 +10,34 @@ use Tegme\Types\Node;
  */
 final class Page
 {
-    /**
-     * Path to the page.
-     * @var string
-     */
+    /** @var string */
     private $path;
 
-    /**
-     * URL of the page.
-     * @var string
-     */
+    /** @var string */
     private $url;
 
-    /**
-     * Title of the page.
-     * @var string
-     */
+    /** @var string */
     private $title;
 
-    /**
-     * Description of the page.
-     * @var string
-     */
+    /** @var string */
     private $description;
 
-    /**
-     * Number of page views for the page.
-     * @var int
-     */
+    /** @var int */
     private $views;
 
-    /**
-     * Name of the author, displayed below the title.
-     * @var string|null <b>OPTIONAL</b>
-     */
+    /** @var string|null <b>OPTIONAL</b> */
     private $authorName;
 
-    /**
-     * Profile link, opened when users click on the author's name below the title.
-     * Can be any link, not necessarily to a Telegram profile or channel.
-     * @var string|null <b>OPTIONAL</b>
-     */
+    /** @var string|null <b>OPTIONAL</b> */
     private $authorUrl;
 
-    /**
-     * Image URL of the page.
-     * @var string|null <b>OPTIONAL</b>
-     */
+    /** @var string|null <b>OPTIONAL</b> */
     private $imageUrl;
 
-    /**
-     * Content of the page.
-     * @var Node[]|null <b>OPTIONAL</b>
-     */
+    /** @var Node[]|null <b>OPTIONAL</b> */
     private $content;
 
-    /**
-     * True, if the target Telegraph account can edit the page.
-     *
-     * Note: Only returned if access_token passed.
-     *
-     * @var bool|null <b>OPTIONAL</b>
-     */
+    /** @var bool|null <b>OPTIONAL</b> */
     private $canEdit;
 
     /**
@@ -112,6 +78,7 @@ final class Page
     }
 
     /**
+     * Path to the page.
      * @return string
      */
     public function getPath()
@@ -120,6 +87,7 @@ final class Page
     }
 
     /**
+     * URL of the page.
      * @return string
      */
     public function getUrl()
@@ -128,6 +96,7 @@ final class Page
     }
 
     /**
+     * Title of the page.
      * @return string
      */
     public function getTitle()
@@ -136,6 +105,7 @@ final class Page
     }
 
     /**
+     * Description of the page.
      * @return string
      */
     public function getDescription()
@@ -144,6 +114,7 @@ final class Page
     }
 
     /**
+     * Number of page views for the page.
      * @return int
      */
     public function getViews()
@@ -152,6 +123,7 @@ final class Page
     }
 
     /**
+     * Name of the author, displayed below the title.
      * @return string|null
      */
     public function getAuthorName()
@@ -160,6 +132,8 @@ final class Page
     }
 
     /**
+     * Profile link, opened when users click on the author's name below the title.
+     * Can be any link, not necessarily to a Telegram profile or channel.
      * @return string|null
      */
     public function getAuthorUrl()
@@ -168,6 +142,7 @@ final class Page
     }
 
     /**
+     * Image URL of the page.
      * @return string|null
      */
     public function getImageUrl()
@@ -176,6 +151,7 @@ final class Page
     }
 
     /**
+     * Content of the page.
      * @return Node[]|null
      */
     public function getContent()
@@ -184,6 +160,10 @@ final class Page
     }
 
     /**
+     * True, if the target Telegraph account can edit the page.
+     *
+     * Note: Only returned if access_token passed.
+     *
      * @return bool|null
      */
     public function getCanEdit()

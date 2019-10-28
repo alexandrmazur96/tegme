@@ -127,6 +127,15 @@ final class CreatePage extends BaseRequest
     }
 
     /**
+     * Return path if exists.
+     * @return string
+     */
+    public function getPath()
+    {
+        return '';
+    }
+
+    /**
      * Validate request information before making request.
      * @return void
      * @throws InvalidRequestInfoException

@@ -42,9 +42,7 @@ final class GetPage extends BaseRequest
      */
     public function toArray()
     {
-        $requestPrototype = [
-            'path' => $this->path,
-        ];
+        $requestPrototype = [];
 
         if ($this->returnContent !== null) {
             $requestPrototype['return_content'] = $this->returnContent;
@@ -77,6 +75,15 @@ final class GetPage extends BaseRequest
     public function getMethod()
     {
         return 'getPage';
+    }
+
+    /**
+     * Return path if exists.
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

@@ -8,54 +8,31 @@ namespace Tegme\Types\Response;
  */
 final class Account
 {
-    /**
-     * Account name, helps users with several accounts remember
-     * which they are currently using.
-     * Displayed to the user above the "Edit/Publish" button on Telegra.ph, other users don't see this name.
-     * @var string
-     */
+    /** @var string */
     private $shortName;
 
-    /**
-     * Default author name used when creating new articles.
-     * @var string
-     */
+    /** @var string */
     private $authorName;
 
-    /**
-     * Profile link, opened when users click on the author's name below the title.
-     * Can be any link, not necessarily to a Telegram profile or channel.
-     * @var string
-     */
+    /** @var string */
     private $authorUrl;
 
-    /**
-     * Optional. Only returned by the createAccount and revokeAccessToken method.
-     * Access token of the Telegraph account.
-     * @var string|null <b>OPTIONAL</b>
-     */
+    /** @var string|null <b>OPTIONAL</b> */
     private $accessToken;
 
-    /**
-     * URL to authorize a browser on telegra.ph and connect it to a Telegraph account.
-     * This URL is valid for only one use and for 5 minutes only.
-     * @var string|null <b>OPTIONAL</b>
-     */
+    /** @var string|null <b>OPTIONAL</b> */
     private $authUrl;
 
-    /**
-     * Number of pages belonging to the Telegraph account.
-     * @var int|null <b>OPTIONAL</b>
-     */
+    /** @var int|null <b>OPTIONAL</b> */
     private $pageCount;
 
     /**
      * @param string $shortName
      * @param string $authorName
      * @param string $authorUrl
-     * @param string $accessToken
-     * @param string $authUrl
-     * @param int $pageCount
+     * @param string|null $accessToken
+     * @param string|null $authUrl
+     * @param int|null $pageCount
      */
     public function __construct(
         $shortName,
@@ -74,6 +51,9 @@ final class Account
     }
 
     /**
+     * Account name, helps users with several accounts remember
+     * which they are currently using.
+     * Displayed to the user above the "Edit/Publish" button on Telegra.ph, other users don't see this name.
      * @return string
      */
     public function getShortName()
@@ -82,6 +62,7 @@ final class Account
     }
 
     /**
+     * Default author name used when creating new articles.
      * @return string
      */
     public function getAuthorName()
@@ -90,6 +71,8 @@ final class Account
     }
 
     /**
+     * Profile link, opened when users click on the author's name below the title.
+     * Can be any link, not necessarily to a Telegram profile or channel.
      * @return string
      */
     public function getAuthorUrl()
@@ -98,6 +81,8 @@ final class Account
     }
 
     /**
+     * Only returned by the createAccount and revokeAccessToken method.
+     * Access token of the Telegraph account.
      * @return string|null
      */
     public function getAccessToken()
@@ -106,6 +91,8 @@ final class Account
     }
 
     /**
+     * URL to authorize a browser on telegra.ph and connect it to a Telegraph account.
+     * This URL is valid for only one use and for 5 minutes only.
      * @return string|null
      */
     public function getAuthUrl()
@@ -114,6 +101,7 @@ final class Account
     }
 
     /**
+     * Number of pages belonging to the Telegraph account.
      * @return int|null
      */
     public function getPageCount()

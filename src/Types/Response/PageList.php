@@ -9,16 +9,10 @@ namespace Tegme\Types\Response;
  */
 final class PageList
 {
-    /**
-     * Total number of pages belonging to the target Telegraph account.
-     * @var int
-     */
+    /** @var int */
     private $totalCount;
 
-    /**
-     * Requested pages of the target Telegraph account.
-     * @var Page[]
-     */
+    /** @var Page[] */
     private $pages;
 
     /**
@@ -33,6 +27,7 @@ final class PageList
     }
 
     /**
+     * Total number of pages belonging to the target Telegraph account.
      * @return int
      */
     public function getTotalCount()
@@ -41,6 +36,7 @@ final class PageList
     }
 
     /**
+     * Requested pages of the target Telegraph account.
      * @return Page[]
      */
     public function getPages()

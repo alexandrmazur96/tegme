@@ -38,4 +38,16 @@ abstract class BaseRequest implements JsonSerializable
      * @link https://telegra.ph/api all information about valid request fields you can find here.
      */
     abstract protected function validate();
+
+    /**
+     * Represent request as array.
+     * @return array
+     */
+    abstract public function toArray();
+
+    /**
+     * Return path if exists.
+     * @return string
+     */
+    abstract public function getPath();
 }

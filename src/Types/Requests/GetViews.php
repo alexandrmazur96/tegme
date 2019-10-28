@@ -72,9 +72,7 @@ final class GetViews extends BaseRequest
      */
     public function toArray()
     {
-        $requestPrototype = [
-            'path' => $this->path,
-        ];
+        $requestPrototype = [];
 
         if ($this->year !== null) {
             $requestPrototype['year'] = $this->year;
@@ -119,6 +117,15 @@ final class GetViews extends BaseRequest
     public function getMethod()
     {
         return 'getViews';
+    }
+
+    /**
+     * Return path if exists.
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

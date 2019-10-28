@@ -8,14 +8,10 @@ namespace Tegme\Types\Response;
  */
 final class PageViews
 {
-    /**
-     * Number of page views for the target page.
-     * @var int
-     */
+    /** @var int */
     private $views;
 
     /**
-     * PageViews constructor.
      * @param int $views
      */
     public function __construct($views)
@@ -24,6 +20,7 @@ final class PageViews
     }
 
     /**
+     * Number of page views for the target page.
      * @return int
      */
     public function getViews()

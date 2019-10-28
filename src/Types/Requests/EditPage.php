@@ -88,7 +88,6 @@ final class EditPage extends BaseRequest
     {
         $requestPrototype = [
             'access_token' => $this->accessToken,
-            'path' => $this->path,
             'title' => $this->title,
             'content' => $this->content,
         ];
@@ -132,6 +131,15 @@ final class EditPage extends BaseRequest
     public function getMethod()
     {
         return 'editPage';
+    }
+
+    /**
+     * Return path if exists.
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
