@@ -1,8 +1,6 @@
 <?php
 
-namespace Tegme\Types\Response;
-
-use Tegme\Types\Node;
+namespace Tegme\Types;
 
 /**
  * This object represents a DOM element node.
@@ -39,7 +37,7 @@ final class NodeElement extends Node
      * NodeElement constructor.
      * @param string $tag
      * @param array|null $attrs
-     * @param Node[]|null $children
+     * @param Node[]|string[]|null $children
      */
     public function __construct($tag, array $attrs = null, array $children = null)
     {
@@ -70,5 +68,34 @@ final class NodeElement extends Node
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Return content length in bytes.
+     * @return int
+     */
+    public function contentLength()
+    {
+        return strlen(json_encode($this));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $prototype = [
+            'tag' => $this->tag,
+        ];
+
+        if ($this->attrs !== null) {
+            $prototype['attrs'] = $this->attrs;
+        }
+
+        if ($this->children !== null) {
+            $prototype['children'] = $this->children;
+        }
+
+        return $prototype;
     }
 }

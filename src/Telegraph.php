@@ -9,9 +9,6 @@ use Tegme\Types\Requests\BaseRequest;
 use Tegme\Types\TelegraphResponse;
 use Tegme\Utils\Curl;
 
-/**
- * @package Tegme
- */
 class Telegraph
 {
     const TELEGRAPH_API = 'https://api.telegra.ph';

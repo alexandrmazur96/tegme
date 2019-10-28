@@ -82,7 +82,7 @@ final class CreatePage extends BaseRequest
         $requestPrototype = [
             'access_token' => $this->accessToken,
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => json_encode($this->content),
         ];
 
         if ($this->authorName !== null) {

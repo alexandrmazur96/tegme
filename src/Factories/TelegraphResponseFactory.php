@@ -2,6 +2,8 @@
 
 namespace Tegme\Factories;
 
+use Tegme\Types\Node;
+use Tegme\Types\NodeElement;
 use Tegme\Types\Response\Account;
 use Tegme\Types\Response\Page;
 use Tegme\Types\Response\PageList;
@@ -9,6 +11,9 @@ use Tegme\Types\Response\PageViews;
 
 class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
 {
+    /** @var Node[] */
+    private $childrenNodes;
+
     /**
      * @param array $apiResponse
      * @param string $method
@@ -137,7 +142,6 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
         $authorName = isset($apiResponse['author_name']) ? $apiResponse['author_name'] : null;
         $authorUrl = isset($apiResponse['author_url']) ? $apiResponse['author_url'] : null;
         $imageUrl = isset($apiResponse['image_url']) ? $apiResponse['image_url'] : null;
-        //todo:: replace content with proper Node object
         $content = isset($apiResponse['content']) ? $apiResponse['content'] : null;
         $canEdit = isset($apiResponse['can_edit']) ? $apiResponse['can_edit'] : null;
 
@@ -153,5 +157,62 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
             $content,
             $canEdit
         );
+    }
+
+    /**
+     * @param array $nodes array representation of nodes.
+     * @return Node[]
+     */
+    private function buildNodeElements(array $nodes)
+    {
+        $nodesObjects = [];
+        foreach ($nodes as $node) {
+            if (isset($node['children'])) {
+                $this->buildChildrenNode($node['children']);
+            }
+
+            $nodesObjects[] = new NodeElement(
+                $node['tag'],
+                isset($node['attrs']) ? $node['attrs'] : null,
+                $this->childrenNodes
+            );
+
+            $this->childrenNodes = null;
+        }
+
+        return $nodesObjects;
+    }
+
+    /**
+     * @param array $children
+     * @return array
+     */
+    private function buildChildrenNode(array $children)
+    {
+        if (isset($children['children'])) {
+            $this->childrenNodes[] = new NodeElement(
+                $children['tag'],
+                isset($children['attrs']) ? $children['attrs'] : null,
+                $this->buildChildrenNode($children['children'])
+            );
+        } elseif (isset($children[0]) > 0 && isset($children[0]['tag'])) {
+            foreach ($children as $child) {
+                $this->childrenNodes[] = new NodeElement(
+                    $child['tag'],
+                    isset($child['attrs']) ? $child['attrs'] : null,
+                    isset($child['children']) ? $child['children'] : null
+                );
+            }
+        } elseif (!isset($children['tag'])) {
+            $this->childrenNodes[] = $children;
+        } else {
+            $this->childrenNodes[] = new NodeElement(
+                $children['tag'],
+                isset($children['attrs']) ? $children['attrs'] : null,
+                isset($children['children']) ? $children['children'] : null
+            );
+        }
+
+        return $children;
     }
 }
