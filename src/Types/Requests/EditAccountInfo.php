@@ -36,6 +36,8 @@ final class EditAccountInfo extends BaseRequest
      *                                  Can be any link, not necessarily to a Telegram profile or channel.
      *
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
+     *
+     * @see Account on success, returns an Account object with the default fields.
      */
     public function __construct($accessToken, $shortName = null, $authorName = null, $authorUrl = null)
     {
