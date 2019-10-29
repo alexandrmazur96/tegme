@@ -41,6 +41,8 @@ final class CreateAccount extends BaseRequest
      *                                  name below the title. Can be any link,
      *                                  not necessarily to a Telegram profile or channel.
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
+     *
+     * @see Account successfull result will return Account object.
      */
     public function __construct($shortName, $authorName = null, $authorUrl = null)
     {
