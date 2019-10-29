@@ -4,6 +4,7 @@ namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Types\Node;
+use Tegme\Types\Response\Page;
 
 /**
  * Use this method to create a new Telegraph page.
@@ -48,6 +49,8 @@ final class CreatePage extends BaseRequest
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
      *
      * @link https://telegra.ph/api#Content-format about telegra.ph content format.
+     *
+     * @see Page successfull result will return Page object.
      */
     public function __construct(
         $accessToken,

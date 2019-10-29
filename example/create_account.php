@@ -3,30 +3,38 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Tegme\Exceptions\CurlException;
+use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\CreateAccount;
 use Tegme\Types\Response\Account;
+use Tegme\Types\TelegraphResponse;
 
 /**
  * First of all - create telegraph client object.
  */
-
 $telegraphClient = new Telegraph();
 
-/*
- * Then we should create needed request object.
- * You can see what result would be returned after request in @see tag in
- * the request class constructor.
- */
-
-$createAccountRequest = new CreateAccount(
-    'Example Short Name',
-    'Alexandr Mazur',
-    'https://t.me/tegme'
-);
+try {
+    /**
+     * Then we should create needed request object.
+     * You can see what result would be returned after request in @see tag in
+     * the request class constructor.
+     */
+    $createAccountRequest = new CreateAccount(
+        'Example Short Name',
+        'Alexandr Mazur',
+        'https://t.me/tegme'
+    );
+} catch (InvalidRequestInfoException $e) {
+    echo 'You try to create request with some invalid parameters. Details: ', $e->getMessage(), PHP_EOL;
+}
 
 try {
+    /**
+     * Make request to telegra.ph API.
+     * @var TelegraphResponse $response
+     */
     $response = $telegraphClient->call($createAccountRequest);
 
     /**
