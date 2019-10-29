@@ -53,6 +53,8 @@ final class EditPage extends BaseRequest
      * @throws InvalidRequestInfoException  look at exception to see what exactly wrong.
      *
      * @link https://telegra.ph/api#Content-format about telegra.ph content format.
+     *
+     * @see Page on success, returns a Page object.
      */
     public function __construct(
         $accessToken,

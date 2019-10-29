@@ -8,7 +8,7 @@ use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Node;
 use Tegme\Types\NodeElement;
-use Tegme\Types\Requests\CreatePage;
+use Tegme\Types\Requests\EditPage;
 use Tegme\Types\Response\Page;
 use Tegme\Types\TelegraphResponse;
 
@@ -21,6 +21,11 @@ $telegraphClient = new Telegraph();
  * Take access token from example/create_account.php
  */
 $accessToken = '85f83453eec82efeb3a9776c9e08fe8d99b3703e3aad65e42c007e0cc5c1';
+
+/**
+ * Take page path from example/create_page.php
+ */
+$pagePath = 'Hello-world-10-29-9';
 
 /**
  * We should build content for our new page.
@@ -40,12 +45,14 @@ try {
      * You can see what result would be returned after request in @see tag in
      * the request class constructor.
      */
-    $createPageRequest = new CreatePage(
+    $editPageRequest = new EditPage(
         $accessToken,
-        'Hello, world!',
+        $pagePath,
+        'Hello World (Changed)!',
         $contentNodes,
-        'Alexandr Mazur',
-        'https://t.me/tegme',
+        // Optional parameters:
+        null,
+        null,
         true
     );
 } catch (InvalidRequestInfoException $e) {
@@ -57,7 +64,7 @@ try {
      * Make request to telegra.ph API.
      * @var TelegraphResponse $response
      */
-    $response = $telegraphClient->call($createPageRequest);
+    $response = $telegraphClient->call($editPageRequest);
 
     /**
      * We know what object would be returned after call() from request class constructor.
@@ -74,7 +81,7 @@ try {
     echo 'Content: ', json_encode($pageObj->getContent()), PHP_EOL;
 
     /**
-     * You can find created page in $pageObj->getUrl();
+     * You can find page example here @link https://telegra.ph/Hello-world-10-29-9
      */
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
