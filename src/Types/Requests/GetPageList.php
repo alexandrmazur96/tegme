@@ -29,6 +29,8 @@ final class GetPageList extends BaseRequest
      * @param int|null $limit       Limits the number of pages to be retrieved.
      *
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
+     *
+     * @see PageList returns a PageList object, sorted by most recently created pages first.
      */
     public function __construct($accessToken, $offset = null, $limit = null)
     {

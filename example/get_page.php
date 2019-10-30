@@ -48,7 +48,7 @@ try {
     echo 'Url: ', $pageObj->getUrl(), PHP_EOL;
     echo 'Views: ', $pageObj->getViews(), PHP_EOL;
     echo 'Can edit? ', $pageObj->getCanEdit() ? 'yes' : 'no', PHP_EOL;
-    echo 'Content: ', json_encode($pageObj->getContent()), PHP_EOL;
+    echo 'Content: ', json_encode($pageObj->getContent(), JSON_PRETTY_PRINT), PHP_EOL;
 
     /**
      * Echos result:

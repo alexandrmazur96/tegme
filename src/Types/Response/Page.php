@@ -2,13 +2,14 @@
 
 namespace Tegme\Types\Response;
 
+use JsonSerializable;
 use Tegme\Types\Node;
 
 /**
  * This object represents a page on Telegraph.
  * @package Tegme\Types
  */
-final class Page
+final class Page implements JsonSerializable
 {
     /** @var string */
     private $path;
@@ -41,7 +42,6 @@ final class Page
     private $canEdit;
 
     /**
-     * Page constructor.
      * @param string $path
      * @param string $url
      * @param string $title
@@ -169,5 +169,41 @@ final class Page
     public function getCanEdit()
     {
         return $this->canEdit;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $prototype = [
+            'path' => $this->getPath(),
+            'url' => $this->getUrl(),
+            'title' => $this->getTitle(),
+            'description' => $this->getDescription(),
+            'views' => $this->getViews(),
+        ];
+
+        if ($this->getAuthorName() !== null) {
+            $prototype['author_name'] = $this->getAuthorName();
+        }
+
+        if ($this->getAuthorUrl() !== null) {
+            $prototype['author_url'] = $this->getAuthorUrl();
+        }
+
+        if ($this->getImageUrl() !== null) {
+            $prototype['image_url'] = $this->getImageUrl();
+        }
+
+        if ($this->getContent() !== null) {
+            $prototype['content'] = json_encode($this->getContent());
+        }
+
+        if ($this->getCanEdit() !== null) {
+            $prototype['can_edit'] = $this->getCanEdit();
+        }
+
+        return $prototype;
     }
 }
