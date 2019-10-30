@@ -26,6 +26,8 @@ final class GetAccountInfo extends BaseRequest
      *                                  <pre>[short_name, author_name, author_url, auth_url, page_count]</pre>
      *
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
+     *
+     * @see Account returns an Account object on success.
      */
     public function __construct($accessToken, array $fields = null)
     {
@@ -49,7 +51,7 @@ final class GetAccountInfo extends BaseRequest
         ];
 
         if ($this->fields !== null) {
-            $requestPrototype['fields'] = $this->fields;
+            $requestPrototype['fields'] = json_encode($this->fields);
         }
 
         return $requestPrototype;

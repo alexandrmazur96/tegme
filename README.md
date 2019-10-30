@@ -15,4 +15,4 @@ Mazur Alexandr - alexandrmazur96@gmail.com - https://t.me/alexandrmazur96
 
 ### License
 
-Telme is licensed under the GNU General Public License - see the LICENSE file for details.
+Tegme is licensed under the GNU General Public License - see the LICENSE file for details.
