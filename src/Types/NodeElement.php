@@ -47,6 +47,7 @@ final class NodeElement extends Node
     }
 
     /**
+     * Return tag name.
      * @return string
      */
     public function getTag()
@@ -55,6 +56,7 @@ final class NodeElement extends Node
     }
 
     /**
+     * Return tag attributes.
      * @return array|null
      */
     public function getAttrs()
@@ -63,6 +65,7 @@ final class NodeElement extends Node
     }
 
     /**
+     * Return children nodes.
      * @return Node[]|null
      */
     public function getChildren()

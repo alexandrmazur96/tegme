@@ -164,5 +164,20 @@ final class EditPage extends BaseRequest
         if ($this->authorUrl !== null && mb_strlen($this->authorUrl) > 512) {
             throw new InvalidRequestInfoException('author_url parameter should be between 0 and 512 characters.');
         }
+
+        $bytes = 0;
+        foreach ($this->content as $node) {
+            $bytes += $node->contentLength();
+        }
+
+        // 64 Kbytes
+        $maxContentLength = 65536;
+        if ($bytes > $maxContentLength) {
+            throw new InvalidRequestInfoException(
+                'content parameter should be up to 64 KB - ' .
+                ($bytes / 1024) .
+                ' bytes given'
+            );
+        }
     }
 }

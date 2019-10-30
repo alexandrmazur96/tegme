@@ -3,6 +3,10 @@
 namespace Tegme\Types;
 
 use Tegme\Factories\AbstractTelegraphResponseFactory;
+use Tegme\Types\Response\Account;
+use Tegme\Types\Response\Page;
+use Tegme\Types\Response\PageList;
+use Tegme\Types\Response\PageViews;
 
 /**
  * Represent request response from telegra.ph API.
@@ -16,6 +20,9 @@ class TelegraphResponse
     /** @var array */
     private $apiResponse;
 
+    /** @var array */
+    private $rawResponse;
+
     /** @var string */
     private $method;
 
@@ -27,11 +34,32 @@ class TelegraphResponse
     public function __construct(AbstractTelegraphResponseFactory $factory, array $apiResponse, $method)
     {
         $this->factory = $factory;
-        $this->apiResponse = $apiResponse;
+        $this->apiResponse = $apiResponse['result'];
+        $this->rawResponse = $apiResponse;
         $this->method = $method;
     }
 
     /**
+     * Return raw response from API.
+     * Contains "ok" status and "result" field with data.
+     *
+     * @return array
+     */
+    public function getRawResponse()
+    {
+        return $this->rawResponse;
+    }
+
+    /**
+     * Return one of Response object, depends on called method.
+     *<br><br>
+     * Possible object that may returned from this method you can find below:
+     *
+     * @see Account
+     * @see Page
+     * @see PageList
+     * @see PageViews
+     *
      * @return mixed
      */
     public function getResult()

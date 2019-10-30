@@ -79,6 +79,6 @@ class Telegraph
             throw new TelegraphApiException('Telegraph API exception. Error: ' . $curlResponse['error']);
         }
 
-        return new TelegraphResponse(new TelegraphResponseFactory(), $curlResponse['result'], $method);
+        return new TelegraphResponse(new TelegraphResponseFactory(), $curlResponse, $method);
     }
 }
