@@ -119,14 +119,20 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
      */
     private function buildAccountObject(array $apiResponse)
     {
+        // Null for /revokeAccessTokenMethod:
+        $shortName = isset($apiResponse['short_name']) ? $apiResponse['short_name'] : null;
+        $authorName = isset($apiResponse['author_name']) ? $apiResponse['author_name'] : null;
+        $authorUrl = isset($apiResponse['author_url']) ? $apiResponse['author_url'] : null;
+
+        // Optional by default:
         $accessToken = isset($apiResponse['access_token']) ? $apiResponse['access_token'] : null;
         $authUrl = isset($apiResponse['auth_url']) ? $apiResponse['auth_url'] : null;
         $pageCount = isset($apiResponse['page_count']) ? $apiResponse['page_count'] : null;
 
         return new Account(
-            $apiResponse['short_name'],
-            $apiResponse['author_name'],
-            $apiResponse['author_url'],
+            $shortName,
+            $authorName,
+            $authorUrl,
             $accessToken,
             $authUrl,
             $pageCount
@@ -142,7 +148,12 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
         $authorName = isset($apiResponse['author_name']) ? $apiResponse['author_name'] : null;
         $authorUrl = isset($apiResponse['author_url']) ? $apiResponse['author_url'] : null;
         $imageUrl = isset($apiResponse['image_url']) ? $apiResponse['image_url'] : null;
-        $content = isset($apiResponse['content']) ? $apiResponse['content'] : null;
+        if (isset($apiResponse['content'])) {
+            $content = $apiResponse['content'];
+            $content = $this->buildNodeElements($content);
+        } else {
+            $content = null;
+        }
         $canEdit = isset($apiResponse['can_edit']) ? $apiResponse['can_edit'] : null;
 
         return new Page(
@@ -172,7 +183,7 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
             }
 
             $nodesObjects[] = new NodeElement(
-                $node['tag'],
+                isset($node['tag']) ? $node['tag'] : null,
                 isset($node['attrs']) ? $node['attrs'] : null,
                 $this->childrenNodes
             );

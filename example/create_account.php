@@ -52,7 +52,7 @@ try {
 
     /**
      * Echos results:
-     * Access token: 85f83453eec82efeb3a9776c9e08fe8d99b3703e3aad65e42c007e0cc5c1
+     * Access token: d6dad593bdeb132be0ee7c9fbe5bdc6c59e052dffaecfe405a13028af84c
      * Author name: Alexandr Mazur
      * Author url: https://t.me/tegme
      * Auth url: https://edit.telegra.ph/auth/j1BznzBuW7TyGGVtLbWDAHgjT08kIP11RAye9aI3fz

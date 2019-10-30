@@ -18,6 +18,8 @@ final class RevokeAccessToken extends BaseRequest
 
     /**
      * @param string $accessToken Access token of the Telegraph account.
+     *
+     * @see Account on success, returns an Account object with new access_token and auth_url fields.
      */
     public function __construct($accessToken)
     {

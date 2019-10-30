@@ -18,7 +18,7 @@ $telegraphClient = new Telegraph();
 /**
  * Take access token from example/create_account.php
  */
-$accessToken = '85f83453eec82efeb3a9776c9e08fe8d99b3703e3aad65e42c007e0cc5c1';
+$accessToken = 'eff0c0b69bf2317cc6f75c59e3dd5c9a49c64bff3cb130ee8ebfdd7b9195';
 
 try {
     /**

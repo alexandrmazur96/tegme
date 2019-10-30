@@ -8,13 +8,13 @@ namespace Tegme\Types\Response;
  */
 final class Account
 {
-    /** @var string */
+    /** @var string|null <b>OPTIONAL</b> */
     private $shortName;
 
-    /** @var string */
+    /** @var string|null <b>OPTIONAL</b> */
     private $authorName;
 
-    /** @var string */
+    /** @var string|null <b>OPTIONAL</b> */
     private $authorUrl;
 
     /** @var string|null <b>OPTIONAL</b> */
@@ -27,17 +27,20 @@ final class Account
     private $pageCount;
 
     /**
-     * @param string $shortName
-     * @param string $authorName
-     * @param string $authorUrl
+     * Optional for revokeAccessToken action:
+     * @param string|null $shortName
+     * @param string|null $authorName
+     * @param string|null $authorUrl
+     *
+     * Optional by default:
      * @param string|null $accessToken
      * @param string|null $authUrl
      * @param int|null $pageCount
      */
     public function __construct(
-        $shortName,
-        $authorName,
-        $authorUrl,
+        $shortName = null,
+        $authorName = null,
+        $authorUrl = null,
         $accessToken = null,
         $authUrl = null,
         $pageCount = null
@@ -54,7 +57,7 @@ final class Account
      * Account name, helps users with several accounts remember
      * which they are currently using.
      * Displayed to the user above the "Edit/Publish" button on Telegra.ph, other users don't see this name.
-     * @return string
+     * @return string|null
      */
     public function getShortName()
     {
@@ -63,7 +66,7 @@ final class Account
 
     /**
      * Default author name used when creating new articles.
-     * @return string
+     * @return string|null
      */
     public function getAuthorName()
     {
@@ -73,7 +76,7 @@ final class Account
     /**
      * Profile link, opened when users click on the author's name below the title.
      * Can be any link, not necessarily to a Telegram profile or channel.
-     * @return string
+     * @return string|null
      */
     public function getAuthorUrl()
     {
