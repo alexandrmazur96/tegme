@@ -43,6 +43,9 @@ final class GetViews extends BaseRequest
      * @param int|null $hour    If passed, the number of page views for the requested hour will be returned.
      *
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
+     *
+     * @see PageViews returns a PageViews object on success.
+     *      By default, the total number of page views will be returned.
      */
     public function __construct(
         $path,
@@ -79,7 +82,7 @@ final class GetViews extends BaseRequest
         }
 
         if ($this->month !== null) {
-            $requestPrototype['month'] = $this->year;
+            $requestPrototype['month'] = $this->month;
         }
 
         if ($this->day !== null) {
