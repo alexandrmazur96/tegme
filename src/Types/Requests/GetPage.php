@@ -22,6 +22,8 @@ final class GetPage extends BaseRequest
      *                                  Title-12-31, i.e. everything that comes after http://telegra.ph/).
      *
      * @param bool|null $returnContent  If true, content field will be returned in Page object.
+     *
+     * @see Page returns a Page object on success.
      */
     public function __construct($path, $returnContent = null)
     {
