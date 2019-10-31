@@ -6,7 +6,7 @@ use Tegme\Exceptions\CurlException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\RevokeAccessToken;
-use Tegme\Types\Response\Account;
+use Tegme\Types\Responses\Account;
 use Tegme\Types\TelegraphResponse;
 
 /**

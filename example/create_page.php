@@ -9,7 +9,7 @@ use Tegme\Telegraph;
 use Tegme\Types\Node;
 use Tegme\Types\NodeElement;
 use Tegme\Types\Requests\CreatePage;
-use Tegme\Types\Response\Page;
+use Tegme\Types\Responses\Page;
 use Tegme\Types\TelegraphResponse;
 
 /**

@@ -3,7 +3,7 @@
 namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
-use Tegme\Types\Response\PageList;
+use Tegme\Types\Responses\PageList;
 
 /**
  * Use this method to get a list of pages belonging to a Telegraph account.

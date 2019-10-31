@@ -7,7 +7,7 @@ use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\GetPageList;
-use Tegme\Types\Response\PageList;
+use Tegme\Types\Responses\PageList;
 use Tegme\Types\TelegraphResponse;
 
 /**

@@ -4,10 +4,10 @@ namespace Tegme\Factories;
 
 use Tegme\Types\Node;
 use Tegme\Types\NodeElement;
-use Tegme\Types\Response\Account;
-use Tegme\Types\Response\Page;
-use Tegme\Types\Response\PageList;
-use Tegme\Types\Response\PageViews;
+use Tegme\Types\Responses\Account;
+use Tegme\Types\Responses\Page;
+use Tegme\Types\Responses\PageList;
+use Tegme\Types\Responses\PageViews;
 
 class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
 {

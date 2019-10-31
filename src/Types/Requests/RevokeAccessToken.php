@@ -2,7 +2,7 @@
 
 namespace Tegme\Types\Requests;
 
-use Tegme\Types\Response\Account;
+use Tegme\Types\Responses\Account;
 
 /**
  * Use this method to revoke access_token and generate a new one, for example,

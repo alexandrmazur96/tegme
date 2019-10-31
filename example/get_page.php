@@ -6,7 +6,7 @@ use Tegme\Exceptions\CurlException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\GetPage;
-use Tegme\Types\Response\Page;
+use Tegme\Types\Responses\Page;
 use Tegme\Types\TelegraphResponse;
 
 /**

@@ -3,7 +3,7 @@
 namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
-use Tegme\Types\Response\PageViews;
+use Tegme\Types\Responses\PageViews;
 
 /**
  * Use this method to get the number of views for a Telegraph article.

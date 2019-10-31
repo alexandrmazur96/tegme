@@ -7,7 +7,7 @@ use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\GetViews;
-use Tegme\Types\Response\PageViews;
+use Tegme\Types\Responses\PageViews;
 use Tegme\Types\TelegraphResponse;
 
 /**

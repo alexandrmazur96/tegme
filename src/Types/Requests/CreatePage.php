@@ -4,7 +4,7 @@ namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Types\Node;
-use Tegme\Types\Response\Page;
+use Tegme\Types\Responses\Page;
 
 /**
  * Use this method to create a new Telegraph page.

@@ -3,7 +3,7 @@
 namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
-use Tegme\Types\Response\Account;
+use Tegme\Types\Responses\Account;
 
 /**
  * Use this method to update information about a Telegraph account.

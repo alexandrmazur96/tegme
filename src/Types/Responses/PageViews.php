@@ -1,6 +1,6 @@
 <?php
 
-namespace Tegme\Types\Response;
+namespace Tegme\Types\Responses;
 
 /**
  * This object represents the number of page views for a Telegraph article.

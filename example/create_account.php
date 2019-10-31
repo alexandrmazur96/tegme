@@ -7,7 +7,7 @@ use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
 use Tegme\Types\Requests\CreateAccount;
-use Tegme\Types\Response\Account;
+use Tegme\Types\Responses\Account;
 use Tegme\Types\TelegraphResponse;
 
 /**

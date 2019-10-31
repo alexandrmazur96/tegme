@@ -2,7 +2,7 @@
 
 namespace Tegme\Types\Requests;
 
-use Tegme\Types\Response\Page;
+use Tegme\Types\Responses\Page;
 
 /**
  * Use this method to get a Telegraph page.

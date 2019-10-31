@@ -3,10 +3,10 @@
 namespace Tegme\Types;
 
 use Tegme\Factories\AbstractTelegraphResponseFactory;
-use Tegme\Types\Response\Account;
-use Tegme\Types\Response\Page;
-use Tegme\Types\Response\PageList;
-use Tegme\Types\Response\PageViews;
+use Tegme\Types\Responses\Account;
+use Tegme\Types\Responses\Page;
+use Tegme\Types\Responses\PageList;
+use Tegme\Types\Responses\PageViews;
 
 /**
  * Represent request response from telegra.ph API.

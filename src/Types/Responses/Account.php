@@ -1,6 +1,6 @@
 <?php
 
-namespace Tegme\Types\Response;
+namespace Tegme\Types\Responses;
 
 /**
  * This object represents a Telegraph account.
