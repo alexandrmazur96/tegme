@@ -11,7 +11,7 @@ use Tegme\Utils\Curl;
 
 /**
  * Base class for TelegraphClient.
- * Provide methods for calling API.
+ * Provide basic methods for calling API.
  * @package Tegme
  */
 abstract class BaseTelegraphClient

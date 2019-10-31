@@ -87,6 +87,15 @@ try {
      *    }
      *   ]
      */
+
+    /**
+     * Or in other case, you can use direct getPage() method:
+     *
+     * @var Page $pageObj
+     */
+    $pageObj = $telegraphClient->getPage($getPageRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

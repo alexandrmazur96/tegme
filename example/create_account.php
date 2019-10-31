@@ -59,6 +59,15 @@ try {
      * Short name: Example Short Name
      * Page count:
      */
+
+    /**
+     * Or in other case, you can use direct createAccount() method:
+     *
+     * @var Account $accountObj
+     */
+    $accountObj = $telegraphClient->createAccount($createAccountRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

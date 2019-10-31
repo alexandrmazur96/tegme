@@ -108,6 +108,15 @@ try {
      *      }
      *  ]
      */
+
+    /**
+     * Or in other case, you can use direct getPageList() method:
+     *
+     * @var PageList $pageListObj
+     */
+    $pageListObj = $telegraphClient->getPageList($getPageListRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

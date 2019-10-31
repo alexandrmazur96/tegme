@@ -58,6 +58,15 @@ try {
      *
      * Page views count: 2
      */
+
+    /**
+     * Or in other case, you can use direct getViews() method:
+     *
+     * @var PageViews $pageViewsObj
+     */
+    $pageViewsObj = $telegraphClient->getViews($getViewsRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

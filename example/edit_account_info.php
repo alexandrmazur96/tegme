@@ -64,6 +64,15 @@ try {
      * Short name: Changed Short Name
      * Page count:
      */
+
+    /**
+     * Or in other case, you can use direct editAccountInfo() method:
+     *
+     * @var Account $accountObj
+     */
+    $accountObj = $telegraphClient->editAccountInfo($editAccountInfoRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

@@ -61,6 +61,15 @@ try {
      * Short name:
      * Page count:
      */
+
+    /**
+     * Or in other case, you can use direct revokeAccessToken() method:
+     *
+     * @var Account $accountObj
+     */
+    $accountObj = $telegraphClient->revokeAccessToken($revokeAccessTokenRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

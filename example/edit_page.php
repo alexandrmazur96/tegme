@@ -83,6 +83,15 @@ try {
     /**
      * You can find page example here @link https://telegra.ph/Hello-world-10-29-9
      */
+
+    /**
+     * Or in other case, you can use direct editPage() method:
+     *
+     * @var Page $pageObj
+     */
+    $pageObj = $telegraphClient->editPage($editPageRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

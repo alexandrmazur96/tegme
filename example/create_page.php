@@ -76,6 +76,15 @@ try {
     /**
      * You can find created page in $pageObj->getUrl();
      */
+
+    /**
+     * Or in other case, you can use direct createPage() method:
+     *
+     * @var Page $pageObj
+     */
+    $pageObj = $telegraphClient->createPage($createPageRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {

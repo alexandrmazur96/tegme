@@ -68,6 +68,15 @@ try {
      * Short name: Changed Short Name
      * Page count: 5
      */
+
+    /**
+     * Or in other case, you can use direct getAccountInfo() method:
+     *
+     * @var Account $accountObj
+     */
+    $accountObj = $telegraphClient->getAccountInfo($getAccountInfoRequest);
+
+    // Result would be the same.
 } catch (CurlException $e) {
     echo 'Curl error has occurred. Details: ', $e->getMessage(), PHP_EOL;
 } catch (TelegraphApiException $e) {
