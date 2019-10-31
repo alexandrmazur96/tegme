@@ -4,81 +4,192 @@ namespace Tegme;
 
 use Tegme\Exceptions\CurlException;
 use Tegme\Exceptions\TelegraphApiException;
-use Tegme\Factories\TelegraphResponseFactory;
-use Tegme\Types\Requests\BaseRequest;
-use Tegme\Types\TelegraphResponse;
-use Tegme\Utils\Curl;
+use Tegme\Types\Requests\CreateAccount;
+use Tegme\Types\Requests\CreatePage;
+use Tegme\Types\Requests\EditAccountInfo;
+use Tegme\Types\Requests\EditPage;
+use Tegme\Types\Requests\GetAccountInfo;
+use Tegme\Types\Requests\GetPage;
+use Tegme\Types\Requests\GetPageList;
+use Tegme\Types\Requests\GetViews;
+use Tegme\Types\Requests\RevokeAccessToken;
+use Tegme\Types\Response\Account;
+use Tegme\Types\Response\Page;
+use Tegme\Types\Response\PageList;
+use Tegme\Types\Response\PageViews;
 
-class Telegraph
+/**
+ * Telegraph client.
+ * @package Tegme
+ */
+class Telegraph extends BaseTelegraphClient
 {
-    const TELEGRAPH_API = 'https://api.telegra.ph';
-
     /**
-     * Call given telegra.ph request.
-     * @param BaseRequest $request
-     * @return TelegraphResponse
+     * Use this method to create a new Telegraph account.
+     * Most users only need one account, but this can be useful
+     * for channel administrators who would like to keep
+     * individual author names and profile links for each of their channels.
+     *
+     * @param CreateAccount $request
+     * @return Account
      * @throws CurlException
      * @throws TelegraphApiException
      */
-    public function call(BaseRequest $request)
+    public function createAccount(CreateAccount $request)
     {
-        $curlHandle = $this->initCurlHandle($request);
+        $telegraphResponse = $this->call($request);
 
-        if ($curlHandle === false) {
-            throw new CurlException('Unable to initiate curl handle');
-        }
+        /** @var Account $accountObj */
+        $accountObj = $telegraphResponse->getResult();
 
-        return $this->request($curlHandle, $request->getMethod());
+        return $accountObj;
     }
 
     /**
-     * Create and initiate curl handle resource.
-     * @param BaseRequest $request
-     * @return false|resource
-     */
-    protected function initCurlHandle(BaseRequest $request)
-    {
-        $curlHandle = curl_init();
-        $url = self::TELEGRAPH_API . '/' . $request->getMethod();
-
-        if ($request->hasPath()) {
-            $url .= '/' . $request->getPath();
-        }
-
-        curl_setopt($curlHandle, CURLOPT_URL, $url);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curlHandle, CURLOPT_POST, true);
-        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, http_build_query($request->toArray()));
-        curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/x-www-form-urlencoded',
-        ]);
-
-        return $curlHandle;
-    }
-
-    /**
-     * Make request to telegra.ph API.
-     * @param resource $curlHandle
-     * @param string $method
-     * @return TelegraphResponse
+     * Use this method to update information about a Telegraph account.
+     * Pass only the parameters that you want to edit.
+     *
+     * @param EditAccountInfo $request
+     * @return Account
      * @throws CurlException
      * @throws TelegraphApiException
      */
-    protected function request($curlHandle, $method)
+    public function editAccountInfo(EditAccountInfo $request)
     {
-        $rawCurlResponse = Curl::execute($curlHandle);
+        $telegraphResponse = $this->call($request);
 
-        $curlResponse = json_decode($rawCurlResponse, true);
+        /** @var Account $accountObj */
+        $accountObj = $telegraphResponse->getResult();
 
-        if ($curlResponse === null) {
-            throw new TelegraphApiException('Unexpected telegraph response format. Raw response: ' . $rawCurlResponse);
-        }
+        return $accountObj;
+    }
 
-        if ($curlResponse['ok'] === false) {
-            throw new TelegraphApiException('Telegraph API exception. Error: ' . $curlResponse['error']);
-        }
+    /**
+     * Use this method to get information about a Telegraph account.
+     *
+     * @param GetAccountInfo $request
+     * @return Account
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function getAccountInfo(GetAccountInfo $request)
+    {
+        $telegraphResponse = $this->call($request);
 
-        return new TelegraphResponse(new TelegraphResponseFactory(), $curlResponse, $method);
+        /** @var Account $accountObj */
+        $accountObj = $telegraphResponse->getResult();
+
+        return $accountObj;
+    }
+
+    /**
+     * Use this method to revoke access_token and generate a new one,
+     * for example, if the user would like to reset all connected sessions,
+     * or you have reasons to believe the token was compromised.
+     *
+     * @param RevokeAccessToken $request
+     * @return Account
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function revokeAccessToken(RevokeAccessToken $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var Account $accountObj */
+        $accountObj = $telegraphResponse->getResult();
+
+        return $accountObj;
+    }
+
+    /**
+     * Use this method to create a new Telegraph page.
+     *
+     * @param CreatePage $request
+     * @return Page
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function createPage(CreatePage $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var Page $pageObj */
+        $pageObj = $telegraphResponse->getResult();
+
+        return $pageObj;
+    }
+
+    /**
+     * Use this method to edit an existing Telegraph page.
+     *
+     * @param EditPage $request
+     * @return Page
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function editPage(EditPage $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var Page $pageObj */
+        $pageObj = $telegraphResponse->getResult();
+
+        return $pageObj;
+    }
+
+    /**
+     * Use this method to get a Telegraph page.
+     *
+     * @param GetPage $request
+     * @return Page
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function getPage(GetPage $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var Page $pageObj */
+        $pageObj = $telegraphResponse->getResult();
+
+        return $pageObj;
+    }
+
+    /**
+     * Use this method to get a list of pages belonging to a Telegraph account.
+     *
+     * @param GetPageList $request
+     * @return PageList
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function getPageList(GetPageList $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var PageList $pageListObj */
+        $pageListObj = $telegraphResponse->getResult();
+
+        return $pageListObj;
+    }
+
+    /**
+     * Use this method to get the number of views for a Telegraph article.
+     * By default, the total number of page views will be returned.
+     *
+     * @param GetViews $request
+     * @return PageViews
+     * @throws CurlException
+     * @throws TelegraphApiException
+     */
+    public function getViews(GetViews $request)
+    {
+        $telegraphResponse = $this->call($request);
+
+        /** @var PageViews $pageViewsObj */
+        $pageViewsObj = $telegraphResponse->getResult();
+
+        return $pageViewsObj;
     }
 }
