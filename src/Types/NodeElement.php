@@ -34,7 +34,6 @@ final class NodeElement extends Node
     private $children;
 
     /**
-     * NodeElement constructor.
      * @param string $tag
      * @param array|null $attrs
      * @param Node[]|string[]|null $children
@@ -44,6 +43,21 @@ final class NodeElement extends Node
         $this->tag = $tag;
         $this->attrs = $attrs;
         $this->children = $children;
+    }
+
+
+    /**
+     * Insert children nodes.
+     * When string[] passed - we understand it as node value.
+     * @param Node[]|string[] $childrenNode
+     */
+    public function insertChildren($childrenNode)
+    {
+        if ($this->getChildren() === null) {
+            $this->children = $childrenNode;
+        } else {
+            $this->children[] = $childrenNode;
+        }
     }
 
     /**
@@ -57,7 +71,7 @@ final class NodeElement extends Node
 
     /**
      * Return tag attributes.
-     * @return array|null
+     * @return array[string]string|null
      */
     public function getAttrs()
     {
@@ -66,7 +80,7 @@ final class NodeElement extends Node
 
     /**
      * Return children nodes.
-     * @return Node[]|null
+     * @return NodeElement[]|null
      */
     public function getChildren()
     {
