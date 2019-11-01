@@ -169,8 +169,8 @@ final class CreatePage extends BaseRequest
         if ($bytes > $maxContentLength) {
             throw new InvalidRequestInfoException(
                 'content parameter should be up to 64 KB - ' .
-                ($bytes / 1024) .
-                ' bytes given'
+                round(($bytes / 1024), 2) .
+                ' KB given'
             );
         }
     }

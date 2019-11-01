@@ -123,9 +123,11 @@ final class EditAccountInfo extends BaseRequest
      */
     protected function validate()
     {
-        $shortNameLength = mb_strlen($this->shortName);
-        if ($shortNameLength < 1 || $shortNameLength > 32) {
-            throw new InvalidRequestInfoException('short_name parameter should be between 1 and 32 characters.');
+        if ($this->shortName !== null) {
+            $shortNameLength = mb_strlen($this->shortName);
+            if ($shortNameLength < 1 || $shortNameLength > 32) {
+                throw new InvalidRequestInfoException('short_name parameter should be between 1 and 32 characters.');
+            }
         }
 
         if ($this->authorName !== null && mb_strlen($this->authorName) > 128) {
