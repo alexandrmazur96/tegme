@@ -3,9 +3,9 @@
 namespace Tegme;
 
 use Tegme\Exceptions\InvalidParameterException;
-use Tegme\Types\Node;
-use Tegme\Types\NodeElement;
-use Tegme\Types\Tags\TagInterface;
+use Tegme\Types\Dom\Nodes\NodeElement;
+use Tegme\Types\Dom\Nodes\NodeInterface;
+use Tegme\Types\Dom\Tags\TagInterface;
 
 class PageBuilder
 {
@@ -25,7 +25,7 @@ class PageBuilder
      */
     public function newTag(TagInterface $tag, array $value = null)
     {
-        $tagAttribute = $tag->getAttribute() === null ? null : $tag->getAttribute()->toArray();
+        $tagAttribute = $tag->getAttributes() === null ? null : $tag->getAttributes()->toArray();
         $newNode = new NodeElement($tag->getTag(), $tagAttribute, $value);
         $this->page[] = $newNode;
         $this->lastInsertedNode = $newNode;
@@ -66,7 +66,7 @@ class PageBuilder
     }
 
     /**
-     * @return Node[]
+     * @return NodeInterface[]
      */
     public function build()
     {
@@ -125,14 +125,14 @@ class PageBuilder
 
         if ($tag !== null && $value !== null) {
             $value = is_array($value) ? $value : [$value];
-            $tagAttribute = $tag->getAttribute() === null ? null : $tag->getAttribute()->toArray();
+            $tagAttribute = $tag->getAttributes() === null ? null : $tag->getAttributes()->toArray();
             $newChildrenNode = new NodeElement($tag->getTag(), $tagAttribute, $value);
 
             return $newChildrenNode;
         }
 
         if ($tag !== null) {
-            $tagAttribute = $tag->getAttribute() === null ? null : $tag->getAttribute()->toArray();
+            $tagAttribute = $tag->getAttributes() === null ? null : $tag->getAttributes()->toArray();
             $newChildrenNode = new NodeElement($tag->getTag(), $tagAttribute);
 
             return $newChildrenNode;

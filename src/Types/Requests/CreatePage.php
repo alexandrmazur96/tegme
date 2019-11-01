@@ -3,7 +3,7 @@
 namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
-use Tegme\Types\Node;
+use Tegme\Types\Dom\DomPageInterface;
 use Tegme\Types\Responses\Page;
 
 /**
@@ -19,9 +19,6 @@ final class CreatePage extends BaseRequest
     /** @var string */
     private $title;
 
-    /** @var Node[] */
-    private $content;
-
     /** @var string|null */
     private $authorName;
 
@@ -30,21 +27,25 @@ final class CreatePage extends BaseRequest
 
     /** @var bool|null */
     private $returnContent;
+    /**
+     * @var DomPageInterface
+     */
+    private $content;
 
     /**
-     * @param string $accessToken       Access token of the Telegraph account.
+     * @param string $accessToken Access token of the Telegraph account.
      *
-     * @param string $title             Page title.
+     * @param string $title Page title.
      *
-     * @param Node[] $content           Content of the page.
+     * @param DomPageInterface $content Content of the page.
      *
-     * @param string|null $authorName   Author name, displayed below the article's title.
+     * @param string|null $authorName Author name, displayed below the article's title.
      *
-     * @param string|null $authorUrl    Profile link, opened when users click on the author's
+     * @param string|null $authorUrl Profile link, opened when users click on the author's
      *                                  name below the title. Can be any link,
      *                                  not necessarily to a Telegram profile or channel.
      *
-     * @param bool|null $returnContent  If true, a content field will be returned in the Page object
+     * @param bool|null $returnContent If true, a content field will be returned in the Page object
      *
      * @throws InvalidRequestInfoException look at exception to see what exactly wrong.
      *
@@ -55,7 +56,7 @@ final class CreatePage extends BaseRequest
     public function __construct(
         $accessToken,
         $title,
-        array $content,
+        DomPageInterface $content,
         $authorName = null,
         $authorUrl = null,
         $returnContent = null
@@ -159,17 +160,14 @@ final class CreatePage extends BaseRequest
             throw new InvalidRequestInfoException('author_url parameter should be between 0 and 512 characters.');
         }
 
-        $bytes = 0;
-        foreach ($this->content as $node) {
-            $bytes += $node->contentLength();
-        }
+        $usedBytes = $this->content->contentLength();
 
         // 64 Kbytes
         $maxContentLength = 65536;
-        if ($bytes > $maxContentLength) {
+        if ($usedBytes > $maxContentLength) {
             throw new InvalidRequestInfoException(
                 'content parameter should be up to 64 KB - ' .
-                round(($bytes / 1024), 2) .
+                round(($usedBytes / 1024), 2) .
                 ' KB given'
             );
         }

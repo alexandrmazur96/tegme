@@ -3,7 +3,7 @@
 namespace Tegme\Types\Requests;
 
 use Tegme\Exceptions\InvalidRequestInfoException;
-use Tegme\Types\Node;
+use Tegme\Types\Dom\Nodes\NodeInterface;
 use Tegme\Types\Responses\Page;
 
 /**
@@ -22,7 +22,7 @@ final class EditPage extends BaseRequest
     /** @var string */
     private $title;
 
-    /** @var Node[] */
+    /** @var NodeInterface[] */
     private $content;
 
     /** @var string|null */
@@ -41,7 +41,7 @@ final class EditPage extends BaseRequest
      *
      * @param string $title             Page title.
      *
-     * @param Node[] $content           Content of the page.
+     * @param NodeInterface[] $content           Content of the page.
      *
      * @param string|null $authorName   Author name, displayed below the article's title.
      *
