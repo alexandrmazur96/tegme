@@ -118,6 +118,38 @@ class DomPageBuilder
     }
 
     /**
+     * Add new children node element with value to the indicated by $nodeId node.
+     * If you have a plan to attach children(-s) to this new node - you should provide $newNodeId parameter.
+     *
+     * If $newNodeId parameter passed - it should be unique on the page,
+     * otherwise it can be overwritten by last added node with same ID.
+     *
+     * @param string $nodeId existing node identifier. Should be presented, otherwise null will be returned.
+     * @param TagInterface $tag tag for new children node element.
+     * @param int|float|bool|string $value value for text node.
+     * @param string|null $newNodeId identifier for new children node.
+     * @return NodeElement|null null returned if no element presented with given ID.
+     */
+    public function addChildrenNodeElementWithValue($nodeId, TagInterface $tag, $value, $newNodeId = null)
+    {
+        if (!isset($this->nodeMap[$nodeId])) {
+            return null;
+        }
+
+        $newNodeElement = new NodeElement($tag, new NodeText($value));
+
+        /** @var NodeElement $nodeElement */
+        $nodeElement = $this->nodeMap[$nodeId];
+        $nodeElement->addChildren($newNodeElement);
+
+        if ($newNodeId !== null) {
+            $this->nodeMap[$newNodeId] = $newNodeElement;
+        }
+
+        return $newNodeElement;
+    }
+
+    /**
      * Add new children node element to the indicated by $nodeId node.
      *
      * Note that node text can't have identifiers - you can't attach children(-s) to this type of NodeInterface.
