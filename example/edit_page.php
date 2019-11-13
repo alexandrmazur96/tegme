@@ -6,6 +6,7 @@ use Tegme\Exceptions\CurlException;
 use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
+use Tegme\Types\Dom\DomPage;
 use Tegme\Types\Dom\Nodes\NodeElement;
 use Tegme\Types\Dom\Nodes\NodeInterface;
 use Tegme\Types\Dom\Nodes\NodeText;
@@ -44,6 +45,8 @@ $contentNodes = [
     new NodeElement(new P(), [new NodeElement(new I(), new NodeText('Have a nice day, buddy!'))]),
 ];
 
+$page = new DomPage($contentNodes);
+
 try {
     /**
      * Then we should create needed request object.
@@ -54,7 +57,7 @@ try {
         $accessToken,
         $pagePath,
         'Hello World (Changed)!',
-        $contentNodes,
+        $page,
         // Optional parameters:
         null,
         null,
