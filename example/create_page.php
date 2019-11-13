@@ -6,8 +6,14 @@ use Tegme\Exceptions\CurlException;
 use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Exceptions\TelegraphApiException;
 use Tegme\Telegraph;
-use Tegme\Types\Node;
-use Tegme\Types\NodeElement;
+use Tegme\Types\Dom\DomPage;
+use Tegme\Types\Dom\Nodes\NodeElement;
+use Tegme\Types\Dom\Nodes\NodeInterface;
+use Tegme\Types\Dom\Nodes\NodeText;
+use Tegme\Types\Dom\Tags\Br;
+use Tegme\Types\Dom\Tags\H3;
+use Tegme\Types\Dom\Tags\P;
+use Tegme\Types\Dom\Tags\I;
 use Tegme\Types\Requests\CreatePage;
 use Tegme\Types\Responses\Page;
 use Tegme\Types\TelegraphResponse;
@@ -25,14 +31,16 @@ $accessToken = 'eff0c0b69bf2317cc6f75c59e3dd5c9a49c64bff3cb130ee8ebfdd7b9195';
 /**
  * We should build content for our new page.
  * Content contain nodes. Nodes is the representation of HTML tags.
- * @var Node[] $contentNodes
+ * @var NodeInterface[] $contentNodes
  */
 $contentNodes = [
-    new NodeElement('h1', null, ['Hello World!']),
-    new NodeElement('br'),
-    new NodeElement('h3', null, ['I create a page example!']),
-    new NodeElement('p', null, [new NodeElement('i', null, ['Have a nice day, buddy!'])]),
+    new NodeElement(new H3(), new NodeText('Hello World!')),
+    new NodeElement(new Br()),
+    new NodeElement(new H3(), new NodeText('I create a page example!')),
+    new NodeElement(new P(), [new NodeElement(new I(), new NodeText('Have a nice day, buddy!'))]),
 ];
+
+$domPage = new DomPage($contentNodes);
 
 try {
     /**
@@ -43,7 +51,7 @@ try {
     $createPageRequest = new CreatePage(
         $accessToken,
         'Hello, world!',
-        $contentNodes,
+        $domPage,
         'Alexandr Mazur',
         'https://t.me/tegme',
         true

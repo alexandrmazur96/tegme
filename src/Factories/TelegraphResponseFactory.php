@@ -2,16 +2,21 @@
 
 namespace Tegme\Factories;
 
-use Tegme\Types\Node;
-use Tegme\Types\NodeElement;
+use Tegme\Types\Dom\Attribute;
+use Tegme\Types\Dom\DomPage;
+use Tegme\Types\Dom\Nodes\NodeElement;
+use Tegme\Types\Dom\Nodes\NodeInterface;
+use Tegme\Types\Dom\Nodes\NodeText;
+use Tegme\Types\Dom\Tags\TagInterface;
 use Tegme\Types\Responses\Account;
 use Tegme\Types\Responses\Page;
 use Tegme\Types\Responses\PageList;
 use Tegme\Types\Responses\PageViews;
+use Tegme\Utils\ArrayUtil;
 
 class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
 {
-    /** @var Node[] */
+    /** @var NodeInterface[] */
     private $childrenNodes;
 
     /**
@@ -151,6 +156,7 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
         if (isset($apiResponse['content'])) {
             $content = $apiResponse['content'];
             $content = $this->buildNodeElements($content);
+            $content = new DomPage($content);
         } else {
             $content = null;
         }
@@ -172,23 +178,26 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
 
     /**
      * @param array $nodes array representation of nodes.
-     * @return Node[]
+     * @return NodeInterface[]
      */
     private function buildNodeElements(array $nodes)
     {
         $nodesObjects = [];
         foreach ($nodes as $node) {
-            if (isset($node['children'])) {
-                $this->buildChildrenNode($node['children']);
+            if (isset($node['tag'])) {
+                if (isset($node['children'])) {
+                    $this->buildChildrenNode($node['children']);
+                }
+
+                $nodesObjects[] = new NodeElement(
+                    $this->createTag($node),
+                    $this->childrenNodes
+                );
+
+                $this->childrenNodes = null;
+            } else {
+                $nodesObjects = new NodeText($node);
             }
-
-            $nodesObjects[] = new NodeElement(
-                isset($node['tag']) ? $node['tag'] : null,
-                isset($node['attrs']) ? $node['attrs'] : null,
-                $this->childrenNodes
-            );
-
-            $this->childrenNodes = null;
         }
 
         return $nodesObjects;
@@ -202,28 +211,58 @@ class TelegraphResponseFactory extends AbstractTelegraphResponseFactory
     {
         if (isset($children['children'])) {
             $this->childrenNodes[] = new NodeElement(
-                $children['tag'],
-                isset($children['attrs']) ? $children['attrs'] : null,
+                $this->createTag($children),
                 $this->buildChildrenNode($children['children'])
             );
         } elseif (isset($children[0]) > 0 && isset($children[0]['tag'])) {
             foreach ($children as $child) {
                 $this->childrenNodes[] = new NodeElement(
-                    $child['tag'],
-                    isset($child['attrs']) ? $child['attrs'] : null,
+                    $this->createTag($child),
                     isset($child['children']) ? $child['children'] : null
                 );
             }
         } elseif (!isset($children['tag'])) {
-            $this->childrenNodes[] = $children;
+            $this->childrenNodes[] = new NodeText(array_pop($children));
         } else {
             $this->childrenNodes[] = new NodeElement(
-                $children['tag'],
-                isset($children['attrs']) ? $children['attrs'] : null,
+                $this->createTag($children),
                 isset($children['children']) ? $children['children'] : null
             );
         }
 
         return $children;
+    }
+
+    /**
+     * @param array $node
+     * @return TagInterface
+     */
+    private function createTag(array $node)
+    {
+        $tagName = isset($node['tag']) ? $node['tag'] : null;
+
+        if ($tagName === null) {
+            return null;
+        }
+
+        $tagName = '\Tegme\Types\Dom\Tags\\' . ucfirst($tagName);
+
+        if (!class_exists($tagName)) {
+            return null;
+        }
+
+        $attributes = isset($node['attrs']) ? $node['attrs'] : null;
+        $attributesObjArr = [];
+        if ($attributes !== null) {
+            if (ArrayUtil::isAssoc($attributes)) {
+                $attributesObjArr[] = new Attribute(key($attributes), current($attributes));
+            } else {
+                foreach ($attributes as $attribute) {
+                    $attributesObjArr[] = new Attribute(key($attribute), current($attribute));
+                }
+            }
+        }
+
+        return new $tagName($attributesObjArr);
     }
 }

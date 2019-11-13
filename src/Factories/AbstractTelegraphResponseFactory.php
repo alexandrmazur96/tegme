@@ -2,6 +2,9 @@
 
 namespace Tegme\Factories;
 
+/**
+ * @package Tegme\Factories
+ */
 abstract class AbstractTelegraphResponseFactory
 {
     /**

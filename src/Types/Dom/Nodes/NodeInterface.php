@@ -1,6 +1,6 @@
 <?php
 
-namespace Tegme\Types;
+namespace Tegme\Types\Dom\Nodes;
 
 use JsonSerializable;
 
@@ -9,8 +9,8 @@ use JsonSerializable;
  * It can be a String which represents a DOM text node or a NodeElement object.
  * @package Tegme\Types
  * @see NodeElement
+ * @see NodeText
  */
-abstract class Node implements JsonSerializable
+interface NodeInterface extends JsonSerializable
 {
-    abstract public function contentLength();
 }

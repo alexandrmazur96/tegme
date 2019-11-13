@@ -3,7 +3,7 @@
 namespace Tegme\Types\Responses;
 
 use JsonSerializable;
-use Tegme\Types\Node;
+use Tegme\Types\Dom\DomPageInterface;
 
 /**
  * This object represents a page on Telegraph.
@@ -35,7 +35,7 @@ final class Page implements JsonSerializable
     /** @var string|null <b>OPTIONAL</b> */
     private $imageUrl;
 
-    /** @var Node[]|null <b>OPTIONAL</b> */
+    /** @var DomPageInterface[]|null <b>OPTIONAL</b> */
     private $content;
 
     /** @var bool|null <b>OPTIONAL</b> */
@@ -50,7 +50,7 @@ final class Page implements JsonSerializable
      * @param string|null $authorName
      * @param string|null $authorUrl
      * @param string|null $imageUrl
-     * @param Node[]|null $content
+     * @param DomPageInterface|null $content
      * @param bool|null $canEdit
      */
     public function __construct(
@@ -62,7 +62,7 @@ final class Page implements JsonSerializable
         $authorName = null,
         $authorUrl = null,
         $imageUrl = null,
-        array $content = null,
+        DomPageInterface $content = null,
         $canEdit = null
     ) {
         $this->path = $path;
@@ -152,7 +152,7 @@ final class Page implements JsonSerializable
 
     /**
      * Content of the page.
-     * @return Node[]|null
+     * @return DomPageInterface
      */
     public function getContent()
     {
