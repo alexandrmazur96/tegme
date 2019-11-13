@@ -14,7 +14,15 @@ class Figure implements TagInterface
      */
     public function __construct(array $attributes = null)
     {
-        $this->attributes = $attributes;
+        if ($attributes !== null) {
+            foreach ($attributes as $name => $value) {
+                if (is_scalar($value)) {
+                    $this->attributes[] = new Attribute($name, $value);
+                } else {
+                    $this->attributes[] = $value;
+                }
+            }
+        }
     }
 
     /**

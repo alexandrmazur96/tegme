@@ -5,7 +5,12 @@ namespace Tegme\Tests\Unit;
 use Exception;
 use Tegme\Exceptions\InvalidRequestInfoException;
 use Tegme\Tests\TestCase;
-use Tegme\Types\NodeElement;
+use Tegme\Types\Dom\Attribute;
+use Tegme\Types\Dom\DomPage;
+use Tegme\Types\Dom\Nodes\NodeElement;
+use Tegme\Types\Dom\Nodes\NodeText;
+use Tegme\Types\Dom\Tags\A;
+use Tegme\Types\Dom\Tags\Aside;
 use Tegme\Types\Requests\CreateAccount;
 use Tegme\Types\Requests\CreatePage;
 use Tegme\Types\Requests\EditAccountInfo;
@@ -115,7 +120,11 @@ class TelegraphRequestsTest extends TestCase
     {
         $accessToken = 'test_access_token';
         $title = 'test_title';
-        $content = [new NodeElement('a', ['href' => 'https://example.com'], ['test_link'])];
+        $nodeList = [
+            new NodeElement(new A(['href' => 'https://example.com']), new NodeText('test_link')),
+            new NodeElement(new A([new Attribute('href', 'https://example.com')]), new NodeText('another_test_link'))
+        ];
+        $content = new DomPage($nodeList);
         $authorName = 'test_author_name';
         $authorUrl = 'test_author_url';
         $returnContent = true;
@@ -213,7 +222,7 @@ class TelegraphRequestsTest extends TestCase
     {
         $accessToken = 'test_access_token';
         $title = 'test_title';
-        $content = [new NodeElement('a', ['href' => 'https://example.com'], ['test_link'])];
+        $content = new DomPage([new NodeElement(new A(['href' => 'https://example.com']), new NodeText('test_link'))]);
         $authorName = 'test_author_name';
 
         try {
@@ -240,13 +249,13 @@ class TelegraphRequestsTest extends TestCase
 
         $failedContent = [];
         for ($i = 0; $i < 3000; $i++) {
-            $failedContent[] = new NodeElement('aside', null, ['TEST_TEST_TEST']);
+            $failedContent[] = new NodeElement(new Aside(), new NodeText('TEST_TEST_TEST'));
         }
         try {
             new CreatePage(
                 $accessToken,
                 $title,
-                $failedContent
+                new DomPage($failedContent)
             );
             $this->fail('Expected exception, but no occurred!');
         } catch (Exception $e) {
@@ -425,7 +434,7 @@ class TelegraphRequestsTest extends TestCase
         $accessToken = 'test_access_token';
         $path = 'test_path';
         $title = 'test_title';
-        $content = [new NodeElement('a', ['href' => 'https://example.com',], ['test_link'])];
+        $content = new DomPage([new NodeElement(new A(['href' => 'https://example.com',]), new NodeText('test_link'))]);
         $authorName = 'test_author_name';
         $authorUrl = 'test_author_url';
         $returnContent = true;
@@ -527,7 +536,7 @@ class TelegraphRequestsTest extends TestCase
         $accessToken = 'test_access_token';
         $path = 'test_path';
         $title = 'test_title';
-        $content = [new NodeElement('a', ['href' => 'https://example.com',], ['test_link'])];
+        $content = new DomPage([new NodeElement(new A(['href' => 'https://example.com',]), new NodeText('test_link'))]);
         $authorName = 'test_author_name';
 
         try {
@@ -583,14 +592,14 @@ class TelegraphRequestsTest extends TestCase
 
         $failedContent = [];
         for ($i = 0; $i < 3000; $i++) {
-            $failedContent[] = new NodeElement('aside', null, ['TEST_TEST_TEST']);
+            $failedContent[] = new NodeElement(new Aside(), new NodeText('TEST_TEST_TEST'));
         }
         try {
             new EditPage(
                 $accessToken,
                 $path,
                 $title,
-                $failedContent
+                new DomPage($failedContent)
             );
             $this->fail('Expected exception, but no occurred!');
         } catch (Exception $e) {
