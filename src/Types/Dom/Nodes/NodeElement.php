@@ -44,6 +44,19 @@ final class NodeElement implements NodeInterface
     }
 
     /**
+     * Insert new children node.
+     * @param NodeInterface $node
+     */
+    public function addChildren(NodeInterface $node)
+    {
+        if ($this->children === null) {
+            $this->children = [$node];
+        } else {
+            $this->children[] = $node;
+        }
+    }
+
+    /**
      * Return tag name.
      * @return string
      */
